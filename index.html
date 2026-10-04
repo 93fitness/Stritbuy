@@ -69,7 +69,18 @@ dialog::backdrop{background:rgba(10,12,30,.65)}
 .more{display:flex;gap:8px;overflow-x:auto;margin-top:8px}.more div{flex:0 0 auto;background:var(--bg);border-radius:10px;padding:8px 10px;font-size:13px}
 .empty{text-align:center;padding:50px 10px;color:var(--mute)}
 .mcat{display:none}
-.foot{text-align:center;color:var(--mute);font-size:12px;padding:26px 14px}
+footer.ft{margin-top:34px;background:#0A3B24;color:#E9F3EC}
+footer.ft .st{height:8px;background:repeating-linear-gradient(90deg,var(--sun) 0 24px,#0E7A43 24px 36px,#E8412C 36px 42px)}
+.fin{max-width:1200px;margin:0 auto;padding:30px 16px 18px}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+.how div{background:rgba(255,255,255,.07);border-radius:14px;padding:14px;font-size:14px}.how b{display:block;font:800 17px 'Bricolage Grotesque',sans-serif;color:var(--sun);margin-bottom:2px}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:22px}
+.fg h4{font:800 15px 'Bricolage Grotesque',sans-serif;margin:0 0 10px;color:#fff}
+.fg button{display:block;border:0;background:none;color:#C9DECF;padding:4px 0;font-size:14px;text-align:left}.fg button:hover{color:var(--sun)}
+.fb{grid-column:span 2;min-width:200px}.fb p{color:#C9DECF;font-size:14px;max-width:34ch;margin:8px 0 0}
+.fl{font:800 28px 'Bricolage Grotesque',sans-serif;color:#fff}.fl i{font-style:normal;background:var(--sun);color:#1B1B2F;border-radius:8px;padding:0 6px;margin-left:2px}
+.safe{margin-top:22px;background:rgba(255,194,26,.14);border:1px dashed var(--sun);border-radius:12px;padding:12px 14px;font-size:13px}
+.fbt{border-top:1px solid rgba(255,255,255,.14);margin-top:22px;padding-top:14px;font-size:12px;color:#9FBFAA;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 @media (max-width:820px){.layout{grid-template-columns:minmax(0,1fr)}.hero,.side{min-width:0}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hs .p{flex:0 0 150px}.bar{gap:8px}.area{flex:1 1 100%}.sr{flex:1 1 100%}aside{display:none}.hero{grid-template-columns:minmax(0,1fr)}.side{grid-template-columns:1fr 1fr}
 .mcat{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px}.mcat button{flex:0 0 auto;border:0;background:var(--card);border-radius:99px;padding:8px 14px;font-weight:700;box-shadow:0 2px 0 var(--line)}.mcat button[aria-pressed=true]{background:var(--g);color:#fff}
 .ban{min-height:190px}.ban .big{font-size:110px}.top{position:static}}
@@ -97,7 +108,18 @@ dialog::backdrop{background:rgba(10,12,30,.65)}
 <div class="ttl" id="all"><h2 id="gt"></h2><span id="gc"></span></div>
 <div class="grid" id="grid"></div>
 </main></div>
-<div class="foot">StritBuy prototype. Shops, prices and phone numbers are samples, not real listings.</div>
+<footer class="ft"><div class="st"></div><div class="fin">
+<div class="how"><div><b>1. Find</b>Search your area for the item or service you need.</div><div><b>2. Call or WhatsApp</b>Ask the shop if it is available and confirm the price.</div><div><b>3. Collect</b>Go to the shop, check the item, and pay there.</div></div>
+<div class="fg">
+<div class="fb"><div class="fl">Strit<i>Buy</i></div><p>The street market, online. Find shops and services near you in Ado Ekiti, from perfume to frozen food, phone repair and more.</p></div>
+<div><h4>Shop by area</h4><button onclick="goArea('Adebayo')">Adebayo</button><button onclick="goArea('Ijigbo')">Ijigbo</button><button onclick="goArea('Ajilosun')">Ajilosun</button><button onclick="goArea('Okesa')">Okesa</button><button onclick="goArea('Basiri')">Basiri</button></div>
+<div><h4>Categories</h4><button onclick="goCat('Perfume')">Perfume</button><button onclick="goCat('Gadgets')">Gadgets</button><button onclick="goCat('Frozen food')">Frozen food</button><button onclick="goCat('Restaurants')">Restaurants</button><button onclick="goCat('Services')">Services</button></div>
+<div><h4>For shop owners</h4><button onclick="openSell()">Sell on StritBuy</button><button onclick="openSell()">List your shop free</button></div>
+<div><h4>My account</h4><button onclick="openAcct('prof')">Sign in or sign up</button><button onclick="openAcct('saved')">Saved items</button><button onclick="openAcct('enq')">My enquiries</button></div>
+</div>
+<div class="safe"><b>Shop safely.</b> Check the item before you pay, and meet at the shop. StritBuy connects you to local shops but does not handle payment or delivery.</div>
+<div class="fbt"><span>© 2026 StritBuy. Made for Ado Ekiti.</span><span>stritbuy.com</span></div>
+</div></footer>
 <nav class="bn"><button onclick="scrollTo(0,0)">🏠<span>Home</span></button><button onclick="openAcct('saved')">♡<span>Saved</span></button><button onclick="openAcct('enq')">📋<span>Enquiries</span></button><button onclick="openAcct('prof')">👤<span>Account</span></button></nav><dialog id="acd"></dialog><dialog id="dlg"></dialog><dialog id="sd"></dialog>
 <script>
 var AREAS=["Adebayo","Ijigbo","Ajilosun","Okesa","Basiri"];
@@ -222,4 +244,6 @@ function rate(j,n){ME.enq[j].rt=n;sv();setTab("enq")}
 function signOut(){ME=null;try{localStorage.removeItem("sb_me")}catch(e){}hdr();render();acd.close()}
 document.getElementById("acd").addEventListener("click",function(e){if(e.target==this)this.close()});
 if(ME){area=ME.area;$("area").value=area}hdr();render();
+function goArea(a){area=a;$("area").value=a;cat="All";$("q").value="";render();scrollTo({top:0,behavior:"smooth"})}
+function goCat(c){cat=c;$("q").value="";render();$("all").scrollIntoView({behavior:"smooth"})}
 </script></body></html>
