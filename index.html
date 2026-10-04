@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>StritBuy – Shop local in Ado Ekiti</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3EFE6;--card:#fff;--ink:#1B1B2F;--mute:#6B6B7B;--line:#E6E0D2;--g:#0E7A43;--gd:#0A5A32;--sun:#FFC21A;--red:#E8412C;--shade:rgba(27,27,47,.08);box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141C;--card:#1C1F2B;--ink:#F3F1EA;--mute:#A4A6B8;--line:#2B2F40;--shade:rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#12141C;--card:#1C1F2B;--ink:#F3F1EA;--mute:#A4A6B8;--line:#2B2F40;--shade:rgba(0,0,0,.4)}
+*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}main{min-width:0}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Figtree,system-ui,sans-serif}
+h1,h2,h3,.disp{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;line-height:1.05}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.strip{background:var(--sun);color:#1B1B2F;text-align:center;font-weight:700;font-size:13px;padding:6px 10px;padding-top:calc(6px + env(safe-area-inset-top,0px))}
+.top{background:var(--g);position:sticky;top:0;z-index:5;box-shadow:0 3px 0 var(--gd)}
+.in{max-width:1200px;margin:0 auto;padding:0 14px}
+.bar{display:flex;align-items:center;gap:12px;padding:12px 0;flex-wrap:wrap}
+.logo{color:#fff;font:800 28px 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em}
+.logo i{font-style:normal;background:var(--sun);color:#1B1B2F;border-radius:8px;padding:0 6px;margin-left:2px}
+.area{background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:10px;padding:10px 12px;font-weight:700}
+.area option{color:#000}
+.sr{flex:1 1 260px;display:flex;background:#fff;border-radius:12px;overflow:hidden;min-width:0}
+.sr input{flex:1;border:0;padding:12px 14px;font:inherit;min-width:0;color:#1B1B2F;background:#fff}
+.sr b{background:var(--sun);color:#1B1B2F;padding:0 18px;display:grid;place-items:center;font-weight:800}
+.layout{max-width:1200px;margin:0 auto;padding:16px 14px;display:grid;grid-template-columns:210px 1fr;gap:18px}
+aside{background:var(--card);border-radius:14px;padding:8px;align-self:start;position:sticky;top:78px;box-shadow:0 2px 0 var(--line)}
+aside h3{padding:10px 10px 4px;font-size:15px}
+.cat{display:flex;gap:10px;align-items:center;width:100%;border:0;background:none;text-align:left;padding:9px 10px;border-radius:10px;font-weight:600}
+.cat span{font-size:20px}.cat:hover{background:var(--bg)}.cat[aria-pressed=true]{background:var(--g);color:#fff}
+.hero{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.ban{border-radius:18px;padding:26px;color:#fff;position:relative;overflow:hidden;min-height:210px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(120deg,#0A5A32,#0E7A43 55%,#F0A800)}
+.ban h2{font-size:clamp(28px,4.6vw,46px);font-weight:800;max-width:11ch}
+.ban p{margin:10px 0 16px;max-width:30ch;opacity:.95}
+.ban .big{position:absolute;right:-6px;bottom:-14px;font-size:140px;transform:rotate(-8deg);opacity:.95}
+.cta{background:var(--sun);color:#1B1B2F;border:0;border-radius:99px;padding:11px 20px;font-weight:800;align-self:flex-start}
+.side{display:grid;gap:12px}
+.sm{border-radius:18px;padding:16px;border:0;text-align:left;color:#fff;position:relative;overflow:hidden;min-height:99px}
+.sm b{font:800 20px 'Bricolage Grotesque',sans-serif;display:block;max-width:10ch;line-height:1.05}.sm span{font-size:13px}
+.sm em{position:absolute;right:8px;bottom:-6px;font-size:58px;font-style:normal}
+.sec{margin-top:22px}
+.sh{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:14px 14px 0 0;color:#fff;background:var(--red)}
+.sh.g{background:var(--g)}.sh h2{font-size:21px}.sh small{font-weight:700}
+.hs{display:flex;gap:10px;overflow-x:auto;background:var(--card);padding:12px;border-radius:0 0 14px 14px;scrollbar-width:thin}
+.hs .p{flex:0 0 160px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;margin-top:12px}
+.p{background:var(--card);border:0;border-radius:14px;overflow:hidden;text-align:left;padding:0;box-shadow:0 2px 0 var(--line);position:relative;display:block;width:100%}
+.p:hover{transform:translateY(-3px);box-shadow:0 8px 18px var(--shade)}
+.tile{height:128px;display:grid;place-items:center;font-size:62px}
+.off{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;font-weight:800;font-size:12px;border-radius:6px;padding:2px 7px}
+.pb{padding:10px 11px 12px}.pn{font-weight:600;font-size:14px;line-height:1.25;min-height:35px}
+.pr{font:800 18px 'Bricolage Grotesque',sans-serif;margin-top:4px}.old{color:var(--mute);text-decoration:line-through;font-size:12px;margin-left:6px;font-weight:400;font-family:Figtree}
+.ps{font-size:12px;color:var(--mute);margin-top:4px;display:flex;align-items:center;gap:5px}
+.dot{width:8px;height:8px;border-radius:9px;background:#1FA855;flex:none}.dot.c{background:#999}
+.star{color:#E89B00}
+.shops{display:flex;gap:14px;overflow-x:auto;background:var(--card);padding:14px;border-radius:0 0 14px 14px}
+.sp{flex:0 0 96px;text-align:center;border:0;background:none;padding:0}
+.sp div{width:74px;height:74px;border-radius:50%;margin:0 auto 6px;display:grid;place-items:center;font-size:34px;border:3px solid var(--sun)}
+.sp b{font-size:12px;display:block;line-height:1.2}.sp small{color:var(--mute);font-size:11px}
+.ttl{display:flex;justify-content:space-between;align-items:baseline;margin-top:24px}.ttl h2{font-size:24px}.ttl span{color:var(--mute);font-size:13px}
+dialog{border:0;border-radius:20px;padding:0;width:min(520px,94vw);max-height:90vh;background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(10,12,30,.65)}
+.dt{height:170px;display:grid;place-items:center;font-size:90px;position:relative}
+.x{position:absolute;top:10px;right:10px;border:0;background:#fff;color:#000;border-radius:50%;width:36px;height:36px;font-size:18px}
+.dbd{padding:16px 20px 20px}.dbd h2{font-size:26px}
+.shopbox{background:var(--bg);border-radius:12px;padding:12px;margin-top:14px;font-size:14px}
+.acts{display:flex;gap:10px;margin-top:14px}
+.btn{flex:1;text-align:center;padding:14px;border-radius:12px;font-weight:800;text-decoration:none;color:#fff}
+.call{background:var(--g)}.wa{background:#1FA855}
+.more{display:flex;gap:8px;overflow-x:auto;margin-top:8px}.more div{flex:0 0 auto;background:var(--bg);border-radius:10px;padding:8px 10px;font-size:13px}
+.empty{text-align:center;padding:50px 10px;color:var(--mute)}
+.mcat{display:none}
+.foot{text-align:center;color:var(--mute);font-size:12px;padding:26px 14px}
+@media (max-width:820px){.layout{grid-template-columns:minmax(0,1fr)}.hero,.side{min-width:0}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hs .p{flex:0 0 150px}.bar{gap:8px}.area{flex:1 1 100%}.sr{flex:1 1 100%}aside{display:none}.hero{grid-template-columns:minmax(0,1fr)}.side{grid-template-columns:1fr 1fr}
+.mcat{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px}.mcat button{flex:0 0 auto;border:0;background:var(--card);border-radius:99px;padding:8px 14px;font-weight:700;box-shadow:0 2px 0 var(--line)}.mcat button[aria-pressed=true]{background:var(--g);color:#fff}
+.ban{min-height:190px}.ban .big{font-size:110px}.top{position:static}}
+.sell{background:var(--sun);color:#1B1B2F;border:0;border-radius:12px;padding:12px 16px;font-weight:800}#sd{width:min(560px,94vw)}.fm{padding:20px}.fm h2{font-size:26px}.fm label{display:block;font-weight:700;font-size:13px;margin:12px 0 4px}.fm input,.fm select{width:100%;padding:11px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:var(--bg);color:var(--ink)}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pl{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line)}.pl button{border:0;background:none;color:var(--red);font-weight:700}.add{display:grid;grid-template-columns:70px 1fr;gap:8px}.sv{width:100%;margin-top:18px;border:0;border-radius:12px;padding:14px;background:var(--g);color:#fff;font-weight:800;font-size:16px}.sm2{background:var(--bg);border:1.5px dashed var(--g);color:var(--g);border-radius:10px;padding:10px;font-weight:700;width:100%;margin-top:8px}.msg{margin-top:12px;font-size:13px;color:var(--mute)}.acc{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:12px;padding:12px 14px;font-weight:800}.hrt{position:absolute;top:8px;left:8px;background:#fff;color:var(--red);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:17px;box-shadow:0 2px 6px var(--shade)}#acd{width:min(560px,94vw)}.tabs{display:flex;border-bottom:2px solid var(--line);overflow-x:auto}.tabs button{flex:1;border:0;background:none;padding:12px 8px;font-weight:700;white-space:nowrap;color:var(--mute)}.tabs button.on{color:var(--g);box-shadow:inset 0 -3px 0 var(--g)}.ah{background:var(--g);color:#fff;padding:18px 20px}.ah h2{font-size:24px}.ah small{opacity:.9}.ab{padding:14px 20px 20px;max-height:56vh;overflow:auto}.row2{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}.row2 .ic{flex:0 0 46px;height:46px;border-radius:10px;display:grid;place-items:center;font-size:24px}.row2 .tx{flex:1;min-width:0;font-size:14px}.row2 .tx small{color:var(--mute);display:block}.mini{border:0;background:var(--g);color:#fff;border-radius:8px;padding:7px 10px;font-weight:700;font-size:13px}.mini.o{background:var(--bg);color:var(--ink)}.stars button{border:0;background:none;font-size:22px;color:#E89B00;padding:0 2px}.btn.sec{background:var(--bg);color:var(--ink);border:1.5px solid var(--line);font-size:14px;padding:11px 6px}.bn{display:none}@media (max-width:820px){.bn{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:2px solid var(--line);z-index:6;padding-bottom:env(safe-area-inset-bottom,0px)}.bn button{flex:1;border:0;background:none;padding:8px 0;font-size:20px;display:flex;flex-direction:column;align-items:center}.bn span{font-size:11px;font-weight:700}body{padding-bottom:64px}}</style></head><body>
+<div class="strip">Shop local. Call or WhatsApp the shop directly. No middleman, no waiting for a rider from another state.</div>
+<div class="top"><div class="in"><div class="bar">
+<div class="logo">Strit<i>Buy</i></div>
+<select class="area" id="area" aria-label="Your area"></select>
+<div class="sr"><input id="q" type="search" placeholder="What do you need near you? Perfume, chicken, charger..."><b>Search</b></div><button class="acc" id="acc" onclick="openAcct()">👤 Sign in</button><button class="sell" onclick="openSell()">Sell on StritBuy</button>
+</div></div></div>
+<div class="layout">
+<aside><h3>Categories</h3><div id="cats"></div></aside>
+<main>
+<div class="mcat" id="mcats"></div>
+<div id="home">
+<div class="hero">
+<div class="ban"><h2>Your street is open for business</h2><p>Real shops in your area, with real prices. Find it, call it, collect it.</p><button class="cta" id="go">See what's near me</button><div class="big">🧺</div></div>
+<div class="side">
+<button class="sm" data-c="Frozen food" style="background:#2563EB"><b>Frozen foods</b><span>Cold and fresh</span><em>🍗</em></button>
+<button class="sm" data-c="Restaurants" style="background:#C2410C"><b>Hungry now?</b><span>Buka and kitchens</span><em>🍲</em></button>
+</div></div>
+<div class="sec"><div class="sh"><h2>🔥 Hot deals near you</h2><small id="dn"></small></div><div class="hs" id="deals"></div></div>
+<div class="sec"><div class="sh g"><h2>Shops around you</h2><small id="sn"></small></div><div class="shops" id="shops"></div></div>
+</div>
+<div class="ttl" id="all"><h2 id="gt"></h2><span id="gc"></span></div>
+<div class="grid" id="grid"></div>
+</main></div>
+<div class="foot">StritBuy prototype. Shops, prices and phone numbers are samples, not real listings.</div>
+<nav class="bn"><button onclick="scrollTo(0,0)">🏠<span>Home</span></button><button onclick="openAcct('saved')">♡<span>Saved</span></button><button onclick="openAcct('enq')">📋<span>Enquiries</span></button><button onclick="openAcct('prof')">👤<span>Account</span></button></nav><dialog id="acd"></dialog><dialog id="dlg"></dialog><dialog id="sd"></dialog>
+<script>
+var AREAS=["Adebayo","Ijigbo","Ajilosun","Okesa","Basiri"];
+var C=[["All","🛍️"],["Perfume","🧴"],["Gadgets","📱"],["Frozen food","🧊"],["Restaurants","🍲"],["Provisions","🛒"],["Fashion","🧵"],["Services","🛠️"]];
+var S=[
+{n:"Amaka Scents",a:"Adebayo",c:"Perfume",e:"🧴",ad:"Beside First Bank, Adebayo Rd",o:8,cl:20,v:1,d:.4,p:[["Arabian oil perfume 12ml",3500,"🧴",4500],["Body spray",2800,"🌸"],["Gift set for men",9500,"🎁",12000]]},
+{n:"TechPoint Gadgets",a:"Adebayo",c:"Gadgets",e:"📱",ad:"Shop 4, Adebayo Plaza",o:9,cl:19,v:1,d:.7,p:[["Fast charger 20W",6500,"🔌",8000],["Power bank 20,000mAh",18000,"🔋"],["Wireless earpods",12000,"🎧",15000]]},
+{n:"Cold Chain Frozen Foods",a:"Adebayo",c:"Frozen food",e:"🧊",ad:"Opp. Adebayo Junction",o:7,cl:21,v:1,d:.9,p:[["Chicken (per kg)",4800,"🍗",5200],["Titus fish carton",42000,"🐟"],["Turkey (per kg)",6200,"🦃"]]},
+{n:"Mama Tope Kitchen",a:"Adebayo",c:"Restaurants",e:"🍲",ad:"Behind Adebayo Market",o:10,cl:21,v:0,d:1.1,p:[["Amala, ewedu, gbegiri",2500,"🍲"],["Jollof rice + chicken",3500,"🍛",4000],["Pounded yam + egusi",3000,"🥘"]]},
+{n:"Ola Provisions",a:"Adebayo",c:"Provisions",e:"🛒",ad:"Adebayo Estate Gate",o:6,cl:22,v:1,d:1.3,p:[["Indomie carton",9500,"🍜",10500],["Groundnut oil 5L",14000,"🫙"],["Rice 50kg",78000,"🍚",82000]]},
+{n:"Kemi Cuts & Braids",a:"Adebayo",c:"Services",e:"💈",ad:"Adebayo Rd, near the church",o:8,cl:18,v:0,d:1.6,p:[["Haircut",1500,"💈"],["Full braids",8000,"💇🏾‍♀️"],["Kids cut",1000,"✂️"]]},
+{n:"Fixit Phone Clinic",a:"Ijigbo",c:"Services",e:"🔧",ad:"Ijigbo Roundabout, Shop 2",o:9,cl:19,v:1,d:.5,p:[["Screen replacement",15000,"📲",18000],["Battery change",7000,"🔋"],["Software fix",3000,"🛠️"]]},
+{n:"Royal Fabrics & Tailoring",a:"Ijigbo",c:"Fashion",e:"🧵",ad:"Ijigbo Market Lane",o:8,cl:18,v:1,d:.8,p:[["Ankara, 6 yards",9000,"🧵",11000],["Native sewing",12000,"👘"],["Lace, 5 yards",25000,"🪡"]]},
+{n:"Iya Bose Fresh Fish",a:"Ajilosun",c:"Frozen food",e:"🐟",ad:"Ajilosun Market",o:6,cl:19,v:0,d:.3,p:[["Croaker (per kg)",5500,"🐟"],["Catfish (per kg)",4500,"🐠",5000],["Crayfish cup",1500,"🦐"]]},
+{n:"Gold Standard Gadgets",a:"Okesa",c:"Gadgets",e:"💻",ad:"Okesa Road, Complex B",o:9,cl:19,v:1,d:.6,p:[["Laptop (used, i5)",185000,"💻",205000],["Phone case",2500,"📱"],["Laptop bag",9000,"🎒"]]},
+{n:"Scent Avenue",a:"Okesa",c:"Perfume",e:"🌸",ad:"Okesa Mall, Shop 11",o:10,cl:20,v:1,d:1,p:[["Designer-inspired 100ml",8000,"🧴",10000],["Incense set",3500,"🪔"],["Roll-on oil",1500,"💧"]]},
+{n:"Basiri Buka",a:"Basiri",c:"Restaurants",e:"🍛",ad:"Basiri Junction",o:7,cl:20,v:0,d:.4,p:[["Rice, stew, fish",2800,"🍛"],["Beans + plantain",2000,"🫘"],["Yam porridge",2500,"🍠"]]}];
+var BASE=S.length,P=[];function buildP(){P=[];S.forEach(function(s,si){s.p.forEach(function(p,pi){P.push({n:p[0],pr:p[1],e:p[2],old:p[3]||0,s:si,r:s.d==null?"New":(4+((si*7+pi*3)%10)/10).toFixed(1)})})})}buildP();
+var D=function(s){return s.d==null?"New":s.d+"km"};
+var area="Adebayo",cat="All",$=function(i){return document.getElementById(i)};
+var N=function(n){return "₦"+n.toLocaleString("en-NG")};
+var HUES=["#FFE3B3","#CDEFD8","#FFD3CC","#D6E4FF","#EBD9FF","#FFF1A8"];
+var hue=function(i){return HUES[i%HUES.length]};
+function open_(s){var h=new Date().getHours();return h>=s.o&&h<s.cl}
+function hr(h){return (h%12||12)+(h<12?"am":"pm")}
+function card(p,i){var s=S[p.s],o=open_(s),pc=p.old?Math.round(100-p.pr/p.old*100):0;
+ return '<button class="p" data-i="'+P.indexOf(p)+'"><div class="tile" style="background:'+hue(P.indexOf(p))+'">'+p.e+'</div>'+heart(p)+(pc?'<span class="off">-'+pc+'%</span>':"")+
+ '<div class="pb"><div class="pn">'+p.n+'</div><div class="pr">'+N(p.pr)+(p.old?'<span class="old">'+N(p.old)+'</span>':"")+'</div><div class="ps"><span class="star">★</span>'+p.r+' · '+D(s)+'</div><div class="ps"><span class="dot '+(o?"":"c")+'"></span>'+s.n+'</div></div></button>'}
+$("area").innerHTML=AREAS.map(function(a){return "<option value='"+a+"'>📍 "+a+", Ado Ekiti</option>"}).join("");
+var catsH=C.map(function(c){return '<button class="cat" data-c="'+c[0]+'"><span>'+c[1]+'</span>'+c[0]+'</button>'}).join("");
+$("cats").innerHTML=catsH;
+$("mcats").innerHTML=C.map(function(c){return '<button data-c="'+c[0]+'">'+c[1]+' '+c[0]+'</button>'}).join("");
+function render(){
+ var q=$("q").value.toLowerCase().trim(),inA=function(p){return S[p.s].a==area};
+ var list=P.filter(function(p){var s=S[p.s];return inA(p)&&(cat=="All"||s.c==cat)&&(!q||(p.n+" "+s.n+" "+s.c).toLowerCase().indexOf(q)>-1)});
+ [].forEach.call(document.querySelectorAll("[data-c]"),function(b){if(b.classList.contains("cat")||b.parentNode.id=="mcats")b.setAttribute("aria-pressed",b.dataset.c==cat)});
+ var home=cat=="All"&&!q;$("home").style.display=home?"":"none";
+ if(home){
+  var d=P.filter(function(p){return inA(p)&&p.old});$("dn").textContent=d.length+" deals";
+  $("deals").innerHTML=d.length?d.map(card).join(""):'<div class="empty">No deals in '+area+' yet.</div>';
+  var ss=S.filter(function(s){return s.a==area});$("sn").textContent=ss.length+" shops";
+  $("shops").innerHTML=ss.map(function(s){var i=S.indexOf(s);return '<button class="sp" data-sh="'+i+'"><div style="background:'+hue(i+2)+'">'+s.e+'</div><b>'+s.n+'</b><small>'+D(s)+' · '+(open_(s)?"Open":"Closed")+'</small></button>'}).join("")}
+ $("gt").textContent=q?'Results for "'+q+'"':(cat=="All"?"Everything in "+area:cat+" in "+area);
+ $("gc").textContent=list.length+" item"+(list.length==1?"":"s");
+ $("grid").innerHTML=list.length?list.map(card).join(""):'<div class="empty" style="grid-column:1/-1"><h3>Nothing here yet</h3><p>No match in '+area+'. Try another area or category. Know a shop that sells this? Tell them to list on StritBuy.</p></div>'}
+function show(i){var p=P[i],s=S[p.s],o=open_(s),ph=(s.ph||'08000000000').replace(/\D/g,''),wn='234'+ph.replace(/^0/,''),t=encodeURIComponent("Hello, I saw "+p.n+" ("+N(p.pr)+") on StritBuy. Is it available?");
+ $("dlg").innerHTML='<div class="dt" style="background:'+hue(i)+'">'+p.e+'<button class="x" aria-label="Close" onclick="dlg.close()">✕</button></div><div class="dbd"><h2>'+p.n+'</h2><div class="pr" style="font-size:26px">'+N(p.pr)+(p.old?'<span class="old">'+N(p.old)+'</span>':"")+'</div><div class="ps"><span class="star">★</span>'+p.r+' rating</div>'+
+ '<div class="shopbox"><b>'+s.e+' '+s.n+'</b>'+(s.v?' <span style="color:var(--g);font-weight:700">✓ Verified</span>':"")+'<br>'+s.ad+', '+s.a+'<br>'+D(s)+' · <b style="color:'+(o?"var(--g)":"var(--red)")+'">'+(o?"Open now":"Closed")+'</b> · '+hr(s.o)+' to '+hr(s.cl)+'</div>'+
+ '<div class="acts" style="margin-bottom:0"><button class="btn sec" id="hsave" onclick="tg('+i+')">'+(isSaved(p)?"♥ Saved":"♡ Save item")+'</button><button class="btn sec" id="hfol" onclick="fl('+i+')">'+(isFol(s)?"✓ Following shop":"+ Follow shop")+'</button></div><div class="acts"><a class="btn call" onclick="logEnq('+i+')" href="tel:'+ph+'">Call shop</a><a class="btn wa" onclick="logEnq('+i+')" href="https://wa.me/'+wn+'?text='+t+'" target="_blank" rel="noopener">WhatsApp</a></div>'+
+ '<h3 style="margin-top:16px;font-size:15px">More from this shop</h3><div class="more">'+s.p.map(function(x){return '<div>'+x[2]+' '+x[0]+' · '+N(x[1])+'</div>'}).join("")+'</div></div>';$("dlg").showModal()}
+document.addEventListener("click",function(e){var b;
+ if(b=e.target.closest("[data-h]"))return tg(b.dataset.h);
+ if(b=e.target.closest(".p"))return show(b.dataset.i);
+ if(b=e.target.closest("[data-sh]")){$("q").value=S[b.dataset.sh].n;render();return $("all").scrollIntoView({behavior:"smooth"})}
+ if(b=e.target.closest("[data-c]")){cat=b.dataset.c;$("q").value="";render();if(b.classList.contains("sm"))$("all").scrollIntoView({behavior:"smooth"})}
+ if(e.target==$("dlg"))$("dlg").close()});
+$("go").onclick=function(){$("deals").scrollIntoView({behavior:"smooth"})};
+$("area").onchange=function(){area=this.value;render()};$("q").oninput=render;
+var LIVE=[],db=null,uid=null,MY={n:"",a:"Adebayo",c:"Provisions",ad:"",ph:"",o:8,cl:20,p:[]};
+var esc=function(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return "&#"+c.charCodeAt(0)+";"}).slice(0,80)};
+var EM=["🛍️","🧴","📱","🍗","🍲","🛒","🧵","💈","🔧","🎁","👟","🥬","💊","📚","🧼"];
+function sync(){S.length=BASE;LIVE.forEach(function(d){S.push(d)});buildP();render()}
+function ingest(x,id){var ic=(C.filter(function(c){return c[0]==x.c})[0]||["","🛍️"])[1];
+ return {id:id,n:esc(x.n),a:AREAS.indexOf(x.a)>-1?x.a:"Adebayo",c:x.c,e:ic,ad:esc(x.ad),ph:esc(x.ph),o:+x.o||8,cl:+x.cl||20,v:0,d:null,
+  p:(x.p||[]).slice(0,30).map(function(q){return [esc(q.n),+q.pr||0,esc(q.e)||"🛍️",+q.old||0]})}}
+(async function(){try{db=await claude.use("db");var u=await claude.use("user");if(db&&u){uid=await u.id();
+ db.collection("shops").onSnapshot(function(sn){LIVE=sn.docs.map(function(d){return ingest(d.data(),d.id)}).filter(function(x){return x.n&&x.p.length});sync()},function(){})}}catch(e){}})();
+var hrs=function(v){var o="";for(var h=5;h<=23;h++)o+='<option value="'+h+'"'+(h==v?" selected":"")+'>'+hr(h)+'</option>';return o};
+function formH(){return '<div class="fm"><h2>Sell on StritBuy</h2><p class="meta" style="color:var(--mute)">Put your shop in front of people in your area. It takes two minutes.</p>'+
+ '<label>Shop name</label><input id="f_n" value="'+esc(MY.n)+'" placeholder="e.g. Bisi Fabrics">'+
+ '<div class="two"><div><label>Area</label><select id="f_a">'+AREAS.map(function(a){return '<option'+(a==MY.a?" selected":"")+'>'+a+'</option>'}).join("")+'</select></div><div><label>Category</label><select id="f_c">'+C.slice(1).map(function(c){return '<option'+(c[0]==MY.c?" selected":"")+'>'+c[0]+'</option>'}).join("")+'</select></div></div>'+
+ '<label>Shop address</label><input id="f_ad" value="'+esc(MY.ad)+'" placeholder="Street, landmark">'+
+ '<label>Phone / WhatsApp number</label><input id="f_ph" type="tel" value="'+esc(MY.ph)+'" placeholder="0803 000 0000">'+
+ '<div class="two"><div><label>Opens</label><select id="f_o">'+hrs(MY.o)+'</select></div><div><label>Closes</label><select id="f_cl">'+hrs(MY.cl)+'</select></div></div>'+
+ '<label>Your products</label><div id="pl">'+MY.p.map(function(q,i){return '<div class="pl"><span>'+esc(q.e)+' '+esc(q.n)+' · '+N(q.pr)+'</span><button onclick="rmP('+i+')">Remove</button></div>'}).join("")+'</div>'+
+ '<div class="add" style="margin-top:8px"><select id="p_e">'+EM.map(function(e){return '<option>'+e+'</option>'}).join("")+'</select><input id="p_n" placeholder="Product name"></div>'+
+ '<div class="two" style="margin-top:8px"><input id="p_p" type="number" min="0" placeholder="Price (₦)"><input id="p_old" type="number" min="0" placeholder="Old price (optional)"></div>'+
+ '<button class="sm2" onclick="addP()">+ Add this product</button><button class="sv" onclick="saveShop()">Publish my shop</button><div class="msg" id="msg">'+(db&&uid?"Your shop is saved to StritBuy and visible to others.":"Preview mode: your shop shows on this device only until saving is switched on.")+'</div>'+
+ '<button class="sm2" style="border-style:solid;border-color:var(--line);color:var(--ink)" onclick="sd.close()">Close</button></div>'}
+function keep(){["n","a","c","ad","ph","o","cl"].forEach(function(k){var e=$("f_"+k);if(e)MY[k]=e.value})}
+function openSell(){var m=LIVE.filter(function(x){return x.id==(uid||"me")})[0];if(m&&!MY.n){MY={n:m.n,a:m.a,c:m.c,ad:m.ad,ph:m.ph,o:m.o,cl:m.cl,p:m.p.map(function(q){return {n:q[0],pr:q[1],e:q[2],old:q[3]}})}}
+ $("sd").innerHTML=formH();$("sd").showModal()}
+function addP(){keep();var n=$("p_n").value.trim(),pr=+$("p_p").value;if(!n||!pr){$("msg").textContent="Enter a product name and a price first.";return}
+ MY.p.push({n:n,pr:pr,e:$("p_e").value,old:+$("p_old").value||0});$("sd").innerHTML=formH()}
+function rmP(i){keep();MY.p.splice(i,1);$("sd").innerHTML=formH()}
+function saveShop(){keep();if(!MY.n.trim()||!MY.ph.trim()||!MY.p.length){$("msg").textContent="Add your shop name, phone number and at least one product.";return}
+ var doc={n:MY.n,a:MY.a,c:MY.c,ad:MY.ad,ph:MY.ph,o:+MY.o,cl:+MY.cl,p:MY.p};
+ var done=function(){area=MY.a;$("area").value=area;cat="All";$("q").value=MY.n;render();$("sd").close();$("all").scrollIntoView({behavior:"smooth"})};
+ if(db&&uid){db.doc("shops/"+uid).set(doc).then(done,function(){$("msg").textContent="Could not save. Check your connection and try again."})}
+ else{LIVE=LIVE.filter(function(x){return x.id!="me"});LIVE.push(ingest(doc,"me"));sync();done()}}
+document.getElementById("sd").addEventListener("click",function(e){if(e.target==this)this.close()});
+
+var ME=null;try{ME=JSON.parse(localStorage.getItem("sb_me"))}catch(e){}
+var key=function(p){return S[p.s].n+"|"+p.n},isSaved=function(p){return !!ME&&ME.saved.indexOf(key(p))>-1},isFol=function(s){return !!ME&&ME.shops.indexOf(s.n)>-1};
+function heart(p){return '<span class="hrt" data-h="'+P.indexOf(p)+'" role="button" aria-label="Save item">'+(isSaved(p)?"♥":"♡")+'</span>'}
+function sv(){try{localStorage.setItem("sb_me",JSON.stringify(ME))}catch(e){}hdr()}
+function hdr(){$("acc").textContent=ME?"👤 Hi, "+ME.name.split(" ")[0]:"👤 Sign in"}
+function tg(i){if(!ME){dlg.close();return openAcct()}var k=key(P[i]),j=ME.saved.indexOf(k);j>-1?ME.saved.splice(j,1):ME.saved.push(k);sv();render();var b=$("hsave");if(b)b.textContent=isSaved(P[i])?"♥ Saved":"♡ Save item"}
+function fl(i){if(!ME){dlg.close();return openAcct()}var n=S[P[i].s].n,j=ME.shops.indexOf(n);j>-1?ME.shops.splice(j,1):ME.shops.push(n);sv();$("hfol").textContent=j>-1?"+ Follow shop":"✓ Following shop"}
+function logEnq(i){if(!ME)return;var p=P[i],s=S[p.s];ME.enq.unshift({k:key(p),n:p.n,sn:s.n,e:p.e,pr:p.pr,t:Date.now(),rt:0,got:0});ME.enq=ME.enq.slice(0,40);sv()}
+function openAcct(t){$("acd").innerHTML=acct(t||(ME?"saved":"new"));if(!$("acd").open)$("acd").showModal()}
+function setTab(t){$("acd").innerHTML=acct(t)}
+function find(k){return P.filter(function(p){return key(p)==k})[0]}
+function acct(t){
+ if(!ME)return '<div class="ah"><h2>Create your StritBuy account</h2><small>Save items, follow shops and track who you have contacted.</small></div><div class="fm" style="padding-top:6px"><label>Your name</label><input id="r_n" placeholder="e.g. Tunde Ade"><label>Phone number</label><input id="r_p" type="tel" placeholder="0803 000 0000"><label>Your area</label><select id="r_a">'+AREAS.map(function(a){return '<option>'+a+'</option>'}).join("")+'</select><button class="sv" onclick="signUp()">Create account</button><label>Already have an account? Paste your transfer code</label><input id="r_c" placeholder="Transfer code from your other phone"><button class="sm2" onclick="restore()">Restore my account</button><div class="msg" id="rm">Your account is stored on this device for now. Real accounts that follow you to any phone need the full website version.</div><button class="sm2" style="border-style:solid;border-color:var(--line);color:var(--ink)" onclick="acd.close()">Not now</button></div>';
+ var tabs=[["saved","♡ Saved ("+ME.saved.length+")"],["shops","Shops ("+ME.shops.length+")"],["enq","Enquiries ("+ME.enq.length+")"],["prof","Profile"]],b="";
+ if(t=="saved"){b=ME.saved.map(find).filter(Boolean).map(function(p){var i=P.indexOf(p);return '<div class="row2"><div class="ic" style="background:'+hue(i)+'">'+p.e+'</div><div class="tx"><b>'+p.n+'</b><small>'+N(p.pr)+' · '+S[p.s].n+'</small></div><button class="mini" onclick="acd.close();show('+i+')">View</button><button class="mini o" onclick="tg('+i+');setTab(\'saved\')">✕</button></div>'}).join("")||'<div class="empty">Nothing saved yet. Tap the ♡ on any item to keep it here.</div>'}
+ if(t=="shops"){b=ME.shops.map(function(n){var s=S.filter(function(x){return x.n==n})[0];return s?'<div class="row2"><div class="ic" style="background:'+hue(S.indexOf(s))+'">'+s.e+'</div><div class="tx"><b>'+s.n+'</b><small>'+s.a+' · '+(open_(s)?"Open now":"Closed")+'</small></div><button class="mini" onclick="area=\''+s.a+'\';$(\'area\').value=area;cat=\'All\';$(\'q\').value=\''+s.n.replace(/'/g,"")+'\';render();acd.close();$(\'all\').scrollIntoView()">Items</button></div>':""}).join("")||'<div class="empty">You are not following any shops. Open an item and tap "Follow shop".</div>'}
+ if(t=="enq"){b='<p class="meta" style="color:var(--mute);margin:0 0 6px">Every time you call or WhatsApp a shop from StritBuy, it is logged here. After you buy, rate the shop.</p>'+ME.enq.map(function(q,j){var d=new Date(q.t).toLocaleDateString("en-NG",{day:"numeric",month:"short"});
+  var act=q.rt?'<span class="star">'+"★".repeat(q.rt)+"</span> Rated":q.got?'<span class="stars">'+[1,2,3,4,5].map(function(n){return '<button onclick="rate('+j+','+n+')" aria-label="'+n+' stars">★</button>'}).join("")+'</span>':'<button class="mini o" onclick="ME.enq['+j+'].got=1;sv();setTab(\'enq\')">I bought this</button>';
+  return '<div class="row2"><div class="ic" style="background:var(--bg)">'+q.e+'</div><div class="tx"><b>'+q.n+'</b><small>'+q.sn+' · '+N(q.pr)+' · '+d+'</small></div><div>'+act+'</div></div>'}).join("")||'<div class="empty">No enquiries yet. Call or WhatsApp a shop and it will show up here.</div>'}
+ if(t=="prof"){b='<label>Name</label><input id="e_n" value="'+esc(ME.name)+'"><label>Phone</label><input id="e_p" type="tel" value="'+esc(ME.phone)+'"><label>My area</label><select id="e_a">'+AREAS.map(function(a){return '<option'+(a==ME.area?" selected":"")+'>'+a+'</option>'}).join("")+'</select><button class="sv" style="margin-top:14px" onclick="saveProf()">Save changes</button><label>Move to another phone</label><textarea readonly rows="3" style="width:100%;font-size:11px;border-radius:10px;padding:8px" onclick="this.select()">'+code()+'</textarea><div class="msg">Copy this code, open StritBuy on the other phone, tap Sign in, and paste it under "Already have an account".</div><button class="sm2" style="border-style:solid;border-color:var(--red);color:var(--red)" onclick="signOut()">Sign out and clear my data</button>'}
+ return '<div class="ah"><h2>Hi, '+esc(ME.name.split(" ")[0])+' 👋</h2><small>📍 '+ME.area+', Ado Ekiti</small></div><div class="tabs">'+tabs.map(function(x){return '<button class="'+(x[0]==t?"on":"")+'" onclick="setTab(\''+x[0]+'\')">'+x[1]+'</button>'}).join("")+'</div><div class="ab fm" style="padding:14px 20px">'+b+'</div><div style="padding:0 20px 16px"><button class="sm2" style="border-style:solid;border-color:var(--line);color:var(--ink)" onclick="acd.close()">Close</button></div>'}
+function signUp(){var n=$("r_n").value.trim(),p=$("r_p").value.trim();if(!n||!p){$("rm").textContent="Enter your name and phone number to continue.";return}
+ ME={name:n.slice(0,40),phone:p.slice(0,20),area:$("r_a").value,saved:[],shops:[],enq:[]};area=ME.area;$("area").value=area;sv();render();setTab("saved")}
+function saveProf(){ME.name=$("e_n").value.trim()||ME.name;ME.phone=$("e_p").value.trim();ME.area=$("e_a").value;area=ME.area;$("area").value=area;sv();render();setTab("prof")}
+function code(){try{return btoa(unescape(encodeURIComponent(JSON.stringify(ME))))}catch(e){return ""}}
+function restore(){try{var o=JSON.parse(decodeURIComponent(escape(atob($("r_c").value.trim()))));if(!o.name||!o.saved)throw 0;
+ ME={name:esc(o.name),phone:esc(o.phone),area:AREAS.indexOf(o.area)>-1?o.area:"Adebayo",saved:(o.saved||[]).map(esc),shops:(o.shops||[]).map(esc),enq:(o.enq||[]).slice(0,40).map(function(q){return {k:esc(q.k),n:esc(q.n),sn:esc(q.sn),e:esc(q.e),pr:+q.pr||0,t:+q.t||Date.now(),rt:Math.min(5,+q.rt||0),got:q.got?1:0}})};
+ area=ME.area;$("area").value=area;sv();render();setTab("saved")}catch(e){$("rm").textContent="That code did not work. Copy it again in full from your other phone."}}
+function rate(j,n){ME.enq[j].rt=n;sv();setTab("enq")}
+function signOut(){ME=null;try{localStorage.removeItem("sb_me")}catch(e){}hdr();render();acd.close()}
+document.getElementById("acd").addEventListener("click",function(e){if(e.target==this)this.close()});
+if(ME){area=ME.area;$("area").value=area}hdr();render();
+</script></body></html>
