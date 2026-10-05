@@ -271,6 +271,7 @@ async function signOut(){try{await sb.auth.signOut()}catch(e){}ME=null;SB_USER=n
 
 var SB_URL="https://hwamhzvpsywwejjoxjee.supabase.co",SB_KEY="sb_publishable_PbJ_fC7M6-Q2ATGXfH8HKg_0aL1ZvSH",SB_USER=null,sb=null,AM="in";
 try{sb=supabase.createClient(SB_URL,SB_KEY)}catch(e){}
+function tp(on){["a_p","a_p2"].forEach(function(i){var e=$(i);if(e)e.type=on?"text":"password"})}
 function am(t){var e=$("am");if(e)e.textContent=t}
 function setMode(m){AM=m;$("acd").innerHTML=acct("x")}
 function authH(m){var T={in:"Sign in",up:"Create your account",forgot:"Forgot password?",reset:"Choose a new password"},B={in:"Sign in",up:"Create account",forgot:"Send reset link",reset:"Save new password"},F={in:"doIn",up:"doUp",forgot:"doForgot",reset:"doReset"};
@@ -278,15 +279,17 @@ function authH(m){var T={in:"Sign in",up:"Create your account",forgot:"Forgot pa
  if(m=="up")h+='<label>Your name</label><input id="a_n" autocomplete="name"><label>Phone number</label><input id="a_t" type="tel"><div class="msg">Your location: <b>'+LBL2()+'</b>. Change it any time at the top of the page.</div>';
  if(m!="reset")h+='<label>Email</label><input id="a_e" type="email" autocomplete="email">';
  if(m!="forgot")h+='<label>'+(m=="reset"?"New password":"Password")+'</label><input id="a_p" type="password" placeholder="At least 6 characters" autocomplete="'+(m=="in"?"current-password":"new-password")+'">';
+ if(m=="up"||m=="reset")h+='<label>Confirm password</label><input id="a_p2" type="password" placeholder="Type it again" autocomplete="new-password">';
+ if(m!="forgot")h+='<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" style="width:auto" onchange="tp(this.checked)"> Show password</label>';
  h+='<button class="sv" onclick="'+F[m]+'()">'+B[m]+'</button><div class="msg" id="am"></div>';
  if(m=="in")h+='<button class="sm2" onclick="setMode(\'forgot\')">Forgot password?</button><button class="sm2" onclick="setMode(\'up\')">Create a new account</button>';
  if(m=="up"||m=="forgot")h+='<button class="sm2" onclick="setMode(\'in\')">I already have an account</button>';
  return h+'<button class="sm2" style="border-style:solid;border-color:var(--line);color:var(--ink)" onclick="acd.close()">Close</button></div>'}
 async function doIn(){var e=$("a_e").value.trim(),p=$("a_p").value;if(!e||!p){am("Enter your email and password.");return}am("Signing in...");var r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error)am(r.error.message)}
-async function doUp(){var n=$("a_n").value.trim(),e=$("a_e").value.trim(),t=$("a_t").value.trim(),p=$("a_p").value;if(!n||!e||!t||p.length<6){am("Fill every box. Password needs at least 6 characters.");return}
+async function doUp(){var n=$("a_n").value.trim(),e=$("a_e").value.trim(),t=$("a_t").value.trim(),p=$("a_p").value;if(!n||!e||!t||p.length<6){am("Fill every box. Password needs at least 6 characters.");return}if(p!=$("a_p2").value){am("The two passwords do not match.");return}
  am("Creating your account...");var r=await sb.auth.signUp({email:e,password:p,options:{data:{name:n,phone:t,loc:{st:ST,tw:TW,a:area}},emailRedirectTo:location.origin}});if(r.error){am(r.error.message);return}if(!r.data.session)am("Account created. Check your email, tap the confirm link, then sign in.")}
 async function doForgot(){var e=$("a_e").value.trim();if(!e){am("Enter your email.");return}var r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin});am(r.error?r.error.message:"If that email has an account, a reset link is on its way. Check your inbox and spam.")}
-async function doReset(){var p=$("a_p").value;if(p.length<6){am("Password needs at least 6 characters.");return}var r=await sb.auth.updateUser({password:p});if(r.error){am(r.error.message);return}am("Password changed. You are signed in.");try{history.replaceState(null,"",location.pathname)}catch(e){}setTimeout(function(){setTab("prof")},900)}
+async function doReset(){var p=$("a_p").value;if(p.length<6){am("Password needs at least 6 characters.");return}if(p!=$("a_p2").value){am("The two passwords do not match.");return}var r=await sb.auth.updateUser({password:p});if(r.error){am(r.error.message);return}am("Password changed. You are signed in.");try{history.replaceState(null,"",location.pathname)}catch(e){}setTimeout(function(){setTab("prof")},900)}
 async function loadMe(){if(!SB_USER){ME=null;hdr();render();return}
  var r=await sb.from("profiles").select("data").eq("id",SB_USER.id).maybeSingle(),d=r.data&&r.data.data,md=SB_USER.user_metadata||{};
  ME=(d&&d.name)?d:{name:esc(md.name||SB_USER.email.split("@")[0]),phone:esc(md.phone||""),loc:md.loc||null,saved:[],shops:[],enq:[]};
