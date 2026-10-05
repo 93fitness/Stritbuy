@@ -167,7 +167,7 @@ function H(x){var h=7;for(var i=0;i<x.length;i++)h=(h*31+x.charCodeAt(i))|0;retu
 var S=[];Object.keys(L).forEach(function(st){Object.keys(L[st]).forEach(function(tw){L[st][tw].forEach(function(a){var h=H(st+tw+a);for(var k=0;k<4;k++){var t=TP[(h+k*2)%TP.length],h2=H(a+k+tw),f=.9+(h2%30)/100;
  S.push({n:NM[(h2>>3)%16]+" "+t[2],a:a,t:tw,st:st,c:t[0],e:t[1],ad:a+", "+tw,o:7+h2%3,cl:18+h2%4,v:0,d:Math.round(h2%25+3)/10,smp:1,
  p:t[3].map(function(q,j){var pr=Math.round(q[1]*f/100)*100,old=(h2+j)%3==0?Math.round(pr*1.2/100)*100:0;return [q[0],pr,q[2],old]})})}})})});
-var BASE=S.length,P=[];function buildP(){P=[];S.forEach(function(s,si){s.p.forEach(function(p,pi){P.push({n:p[0],pr:p[1],e:p[2],old:p[3]||0,s:si,r:s.d==null?"New":(4+((si*7+pi*3)%10)/10).toFixed(1)})})})}buildP();
+var BASE=S.length,P=[];function buildP(){P=[];S.forEach(function(s,si){s.p.forEach(function(p,pi){P.push({n:p[0],pr:p[1],e:p[2],old:p[3]||0,im:p[4]||[],s:si,r:s.d==null?"New":(4+((si*7+pi*3)%10)/10).toFixed(1)})})})}buildP();
 var D=function(s){return s.d==null?"New":s.d+"km"};
 var ST="Ekiti",TW="Ado-Ekiti",area="All areas",cat="All",$=function(i){return document.getElementById(i)};
 var N=function(n){return "₦"+n.toLocaleString("en-NG")};
@@ -176,7 +176,7 @@ var hue=function(i){return HUES[i%HUES.length]};
 function open_(s){var h=new Date().getHours();return h>=s.o&&h<s.cl}
 function hr(h){return (h%12||12)+(h<12?"am":"pm")}
 function card(p,i){var s=S[p.s],o=open_(s),pc=p.old?Math.round(100-p.pr/p.old*100):0;
- return '<button class="p" data-i="'+P.indexOf(p)+'"><div class="tile" style="background:'+hue(P.indexOf(p))+'">'+p.e+'</div>'+heart(p)+(pc?'<span class="off">-'+pc+'%</span>':"")+
+ return '<button class="p" data-i="'+P.indexOf(p)+'">'+tileH(p)+heart(p)+(pc?'<span class="off">-'+pc+'%</span>':"")+
  '<div class="pb"><div class="pn">'+p.n+'</div><div class="pr">'+N(p.pr)+(p.old?'<span class="old">'+N(p.old)+'</span>':"")+'</div><div class="ps"><span class="star">★</span>'+p.r+' · '+D(s)+'</div><div class="ps"><span class="dot '+(o?"":"c")+'"></span>'+s.n+(s.smp?' <em style="opacity:.55;font-style:normal">(sample)</em>':"")+'</div></div></button>'}
 
 var catsH=C.map(function(c){return '<button class="cat" data-c="'+c[0]+'"><span>'+c[1]+'</span>'+c[0]+'</button>'}).join("");
@@ -196,7 +196,7 @@ function render(){
  $("gc").textContent=list.length+" item"+(list.length==1?"":"s")+(list.length>60?" · showing 60, pick an area to narrow":"");
  $("grid").innerHTML=list.length?list.slice(0,60).map(card).join(""):'<div class="empty" style="grid-column:1/-1"><h3>Nothing here yet</h3><p>No match in '+LBL()+'. Try another area or category. Know a shop that sells this? Tell them to list on StritBuy.</p></div>'}
 function show(i){var p=P[i],s=S[p.s],o=open_(s),ph=(s.ph||'08000000000').replace(/\D/g,''),wn='234'+ph.replace(/^0/,''),t=encodeURIComponent("Hello, I saw "+p.n+" ("+N(p.pr)+") on StritBuy. Is it available?");
- $("dlg").innerHTML='<div class="dt" style="background:'+hue(i)+'">'+p.e+'<button class="x" aria-label="Close" onclick="dlg.close()">✕</button></div><div class="dbd"><h2>'+p.n+'</h2><div class="pr" style="font-size:26px">'+N(p.pr)+(p.old?'<span class="old">'+N(p.old)+'</span>':"")+'</div><div class="ps"><span class="star">★</span>'+p.r+' rating</div>'+
+ $("dlg").innerHTML=''+dtH(p,i)+'<button class="x" aria-label="Close" onclick="dlg.close()">✕</button></div><div class="dbd">'+thumbs(p)+'<h2>'+p.n+'</h2><div class="pr" style="font-size:26px">'+N(p.pr)+(p.old?'<span class="old">'+N(p.old)+'</span>':"")+'</div><div class="ps"><span class="star">★</span>'+p.r+' rating</div>'+
  '<div class="shopbox">'+(s.smp?'<div style="background:var(--sun);color:#1B1B2F;border-radius:8px;padding:4px 8px;font-weight:700;font-size:12px;margin-bottom:8px">Sample listing for demonstration. Not a real shop.</div>':"")+'<b>'+s.e+' '+s.n+'</b>'+(s.v?' <span style="color:var(--g);font-weight:700">✓ Verified</span>':"")+'<br>'+s.ad+', '+s.a+'<br>'+D(s)+' · <b style="color:'+(o?"var(--g)":"var(--red)")+'">'+(o?"Open now":"Closed")+'</b> · '+hr(s.o)+' to '+hr(s.cl)+(s.smp?'<br><small style="color:var(--mute)">Sample shop for demonstration</small>':"")+'</div>'+
  '<div class="acts" style="margin-bottom:0"><button class="btn sec" id="hsave" onclick="tg('+i+')">'+(isSaved(p)?"♥ Saved":"♡ Save item")+'</button><button class="btn sec" id="hfol" onclick="fl('+i+')">'+(isFol(s)?"✓ Following shop":"+ Follow shop")+'</button></div><div class="acts"><a class="btn call" onclick="logEnq('+i+')" href="tel:'+ph+'">Call shop</a><a class="btn wa" onclick="logEnq('+i+')" href="https://wa.me/'+wn+'?text='+t+'" target="_blank" rel="noopener">WhatsApp</a></div>'+
  '<h3 style="margin-top:16px;font-size:15px">More from this shop</h3><div class="more">'+s.p.map(function(x){return '<div>'+x[0]+' · '+N(x[1])+'</div>'}).join("")+'</div></div>';$("dlg").showModal()}
@@ -208,6 +208,15 @@ document.addEventListener("click",function(e){var b;
  if(e.target==$("dlg"))$("dlg").close()});
 $("go").onclick=function(){$("deals").scrollIntoView({behavior:"smooth"})};
 $("st").onchange=function(){ST=this.value;TW=Object.keys(L[ST])[0];area="All areas";initLoc();render()};$("tw").onchange=function(){TW=this.value;area="All areas";initLoc();render()};$("area").onchange=function(){area=this.value;render()};$("q").oninput=render;
+var PD={e:"🛍️",n:"",pr:0,old:0,im:[]},EDIT=-1,newPD=function(){return {e:"🛍️",n:"",pr:0,old:0,im:[]}};
+function msg(t){var e=$("msg");if(e)e.textContent=t}
+function imgH(){return (PD.im.length?'<div style="margin-top:8px">'+PD.im.map(function(u,i){return '<span style="position:relative;display:inline-block;margin:0 6px 6px 0"><img src="'+u+'" alt="" style="width:64px;height:64px;object-fit:cover;border-radius:8px"><button onclick="rmI('+i+')" aria-label="Remove photo" style="position:absolute;top:-6px;right:-6px;border:0;background:var(--red);color:#fff;border-radius:50%;width:22px;height:22px">×</button></span>'}).join("")+'</div>':"")+(PD.im.length<3?'<label>Photos (up to 3)</label><input id="p_f" type="file" accept="image/*" multiple onchange="upImgs(this)">':"")}
+function rmI(i){keep();PD.im.splice(i,1);$("sd").innerHTML=formH()}
+function edP(i){keep();var q=MY.p[i];PD={e:q.e,n:q.n,pr:q.pr,old:q.old||0,im:(q.im||[]).slice()};EDIT=i;$("sd").innerHTML=formH();$("p_n").scrollIntoView({behavior:"smooth",block:"center"});msg("Editing this product. Change what you need, then tap Save changes.")}
+function shrink(f){return new Promise(function(res,rej){var img=new Image(),u=URL.createObjectURL(f);img.onload=function(){var sc=Math.min(1,900/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(function(b){b?res(b):rej()},"image/jpeg",.78)};img.onerror=rej;img.src=u})}
+async function upImgs(inp){keep();if(!SB_USER){msg("Sign in first.");return}var fs=[].slice.call(inp.files).slice(0,3-PD.im.length),err="";msg("Uploading photos...");
+ for(var k=0;k<fs.length;k++){try{var b=await shrink(fs[k]),path=SB_USER.id+"/"+Date.now()+"_"+k+".jpg",r=await sb.storage.from("products").upload(path,b,{contentType:"image/jpeg"});if(r.error){err="Upload failed: "+r.error.message;continue}PD.im.push(sb.storage.from("products").getPublicUrl(path).data.publicUrl)}catch(e){err="Could not read that photo."}}
+ $("sd").innerHTML=formH();msg(err||"Photos added. Now tap + Add this product.")}
 var LIVE=[],db=null,uid=null,MY={n:"",a:"Adebayo",c:"Provisions",ad:"",ph:"",o:8,cl:20,p:[]};
 var esc=function(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return "&#"+c.charCodeAt(0)+";"}).slice(0,80)};
 var PTG={"Food and drinks":[["Chicken","🍗"],["Fish","🐟"],["Turkey","🦃"],["Meat","🥩"],["Rice","🍚"],["Noodles","🍜"],["Cooked food","🍲"],["Fast food","🍔"],["Small chops","🥟"],["Cake","🎂"],["Bread","🍞"],["Fruits","🍎"],["Vegetables","🥬"],["Pepper and tomatoes","🌶️"],["Yam and tubers","🍠"],["Drinks","🥤"],["Water","💧"],["Cooking oil","🫙"],["Eggs","🥚"],["Milk and dairy","🥛"],["Provisions","🛒"]],
@@ -217,14 +226,18 @@ var PTG={"Food and drinks":[["Chicken","🍗"],["Fish","🐟"],["Turkey","🦃"]
 "Home and building":[["Furniture","🛋️"],["Bed and mattress","🛏️"],["Kitchen items","🍳"],["Building materials","🧱"],["Paint","🎨"],["Tools","🔧"],["Cleaning supplies","🧼"]],
 "Health":[["Medicine","💊"],["Health devices","🩺"]],
 "Services and others":[["Haircut and barbing","💈"],["Repair service","🛠️"],["Laundry","🧺"],["Printing","🖨️"],["Event rentals","🎪"],["Decoration","🎉"],["Books and lessons","📚"],["Cleaning service","🧹"],["Declutter and used items","♻️"],["Gifts","🎁"],["Baby items","👶"],["Toys","🧸"],["Sports and fitness","🏋️"],["Farm produce","🌾"],["Other","🛍️"]]};
+function tileH(p){return p.im&&p.im.length?'<div class="tile" style="background:#ddd url(\''+p.im[0]+'\') center/cover"></div>':'<div class="tile" style="background:'+hue(P.indexOf(p))+'">'+p.e+'</div>'}
+function dtH(p,i){var im=p.im||[];return '<div class="dt" id="dt" style="'+(im.length?"background:#222 url('"+im[0]+"') center/cover":"background:"+hue(i))+'">'+(im.length?"":p.e)}
+function thumbs(p){return p.im&&p.im.length>1?'<div class="more" style="margin:0 0 10px">'+p.im.map(function(u){return '<img src="'+u+'" alt="" data-u="'+u+'" onclick="swapI(this.dataset.u)" style="width:56px;height:56px;object-fit:cover;border-radius:8px;flex:0 0 auto">'}).join("")+'</div>':""}
+function swapI(u){$("dt").style.background="#222 url('"+u+"') center/cover"}
 function ptName(e){var r="Item";Object.keys(PTG).forEach(function(g){PTG[g].forEach(function(t){if(t[1]==e)r=t[0]})});return r}
-function ptOpts(){return Object.keys(PTG).map(function(g){return '<optgroup label="'+g+'">'+PTG[g].map(function(t){return '<option value="'+t[1]+'">'+t[0]+'</option>'}).join("")+'</optgroup>'}).join("")}
+function ptOpts(sel){return Object.keys(PTG).map(function(g){return '<optgroup label="'+g+'">'+PTG[g].map(function(t){return '<option value="'+t[1]+'"'+(t[1]==sel?" selected":"")+'>'+t[0]+'</option>'}).join("")+'</optgroup>'}).join("")}
 var EM=["🛍️","🧴","📱","🍗","🍲","🛒","🧵","💈","🔧","🎁","👟","🥬","💊","📚","🧼"];
 function sync(){S.length=BASE;LIVE.forEach(function(d){S.push(d)});buildP();render()}
+function okIm(a){return (Array.isArray(a)?a:[]).slice(0,3).filter(function(u){return typeof u=="string"&&u.indexOf(SB_URL+"/storage/v1/object/public/products/")==0&&/^[A-Za-z0-9:\/._\-%]+$/.test(u)})}
 function ingest(x,id){var ic=(C.filter(function(c){return c[0]==x.c})[0]||["","🛍️"])[1];
  return {id:id,n:esc(x.n),st:x.st,t:x.tw,a:esc(x.a),c:x.c,e:ic,ad:esc(x.ad),ph:esc(x.ph),o:+x.o||8,cl:+x.cl||20,v:0,d:null,
-  p:(x.p||[]).slice(0,30).map(function(q){return [esc(q.n),+q.pr||0,esc(q.e)||"🛍️",+q.old||0]})}}
-loadShops();
+  p:(x.p||[]).slice(0,30).map(function(q){return [esc(q.n),+q.pr||0,esc(q.e)||"🛍️",+q.old||0,okIm(q.im)]})}}
 var hrs=function(v){var o="";for(var h=5;h<=23;h++)o+='<option value="'+h+'"'+(h==v?" selected":"")+'>'+hr(h)+'</option>';return o};
 function formH(){return '<div class="fm"><h2>Sell on StritBuy</h2><p class="meta" style="color:var(--mute)">Put your shop in front of people in your area. It takes two minutes.</p>'+
  '<label>Shop name</label><input id="f_n" value="'+esc(MY.n)+'" placeholder="e.g. Bisi Fabrics">'+
@@ -232,17 +245,17 @@ function formH(){return '<div class="fm"><h2>Sell on StritBuy</h2><p class="meta
  '<label>Shop address</label><input id="f_ad" value="'+esc(MY.ad)+'" placeholder="Street, landmark">'+
  '<label>Phone / WhatsApp number</label><input id="f_ph" type="tel" value="'+esc(MY.ph)+'" placeholder="0803 000 0000">'+
  '<div class="two"><div><label>Opens</label><select id="f_o">'+hrs(MY.o)+'</select></div><div><label>Closes</label><select id="f_cl">'+hrs(MY.cl)+'</select></div></div>'+
- '<label>Your products</label><div id="pl">'+MY.p.map(function(q,i){return '<div class="pl"><span><b>'+ptName(q.e)+':</b> '+esc(q.n)+' · '+N(q.pr)+'</span><button onclick="rmP('+i+')">Remove</button></div>'}).join("")+'</div>'+
- '<label>Product type</label><select id="p_e">'+ptOpts()+'</select><label>Product name</label><input id="p_n" placeholder="e.g. Fresh frozen chicken, per kg">'+
- '<div class="two" style="margin-top:8px"><input id="p_p" type="number" min="0" placeholder="Price (₦)"><input id="p_old" type="number" min="0" placeholder="Old price (optional)"></div>'+
- '<button class="sm2" onclick="addP()">+ Add this product</button><button class="sv" onclick="saveShop()">Publish my shop</button><div class="msg" id="msg">'+"Your shop is saved to StritBuy and visible to everyone."+'</div>'+
+ '<label>Your products</label><div id="pl">'+MY.p.map(function(q,i){return '<div class="pl"><span><b>'+ptName(q.e)+':</b> '+esc(q.n)+' · '+N(q.pr)+'</span><span><button onclick="edP('+i+')">Edit</button> <button onclick="rmP('+i+')">Remove</button></span></div>'}).join("")+'</div>'+
+ '<label>Product type</label><select id="p_e">'+ptOpts(PD.e)+'</select><label>Product name</label><input id="p_n" value="'+esc(PD.n)+'" placeholder="e.g. Fresh frozen chicken, per kg">'+
+ '<div class="two" style="margin-top:8px"><input id="p_p" type="number" min="0" value="'+(PD.pr||"")+'" placeholder="Price (₦)"><input id="p_old" type="number" min="0" value="'+(PD.old||"")+'" placeholder="Old price (optional)"></div>'+imgH()+
+ '<button class="sm2" onclick="addP()">'+(EDIT>=0?"Save changes to this product":"+ Add this product")+'</button><button class="sv" onclick="saveShop()">Publish my shop</button><div class="msg" id="msg">'+"Your shop is saved to StritBuy and visible to everyone."+'</div>'+
  '<button class="sm2" style="border-style:solid;border-color:var(--line);color:var(--ink)" onclick="sd.close()">Close</button></div>'}
-function keep(){["n","st","tw","a","c","ad","ph","o","cl"].forEach(function(k){var e=$("f_"+k);if(e)MY[k]=e.value})}
-function openSell(){if(!MY.st){MY.st=ST;MY.tw=TW;MY.a=area=="All areas"?L[ST][TW][0]:area}if(!SB_USER){openAcct();return}var m=LIVE.filter(function(x){return x.oid==SB_USER.id})[0];if(m&&!MY.n){MY={n:m.n,st:m.st,tw:m.t,a:m.a,c:m.c,ad:m.ad,ph:m.ph,o:m.o,cl:m.cl,p:m.p.map(function(q){return {n:q[0],pr:q[1],e:q[2],old:q[3]}})}}
+function keep(){var pe=$("p_e");if(pe){PD.e=pe.value;PD.n=$("p_n").value;PD.pr=+$("p_p").value||0;PD.old=+$("p_old").value||0}["n","st","tw","a","c","ad","ph","o","cl"].forEach(function(k){var e=$("f_"+k);if(e)MY[k]=e.value})}
+function openSell(){PD=newPD();EDIT=-1;if(!MY.st){MY.st=ST;MY.tw=TW;MY.a=area=="All areas"?L[ST][TW][0]:area}if(!SB_USER){openAcct();return}var m=LIVE.filter(function(x){return x.oid==SB_USER.id})[0];if(m&&!MY.n){MY={n:m.n,st:m.st,tw:m.t,a:m.a,c:m.c,ad:m.ad,ph:m.ph,o:m.o,cl:m.cl,p:m.p.map(function(q){return {n:q[0],pr:q[1],e:q[2],old:q[3],im:q[4]||[]}})}}
  $("sd").innerHTML=formH();$("sd").showModal()}
-function addP(){keep();var n=$("p_n").value.trim(),pr=+$("p_p").value;if(!n||!pr){$("msg").textContent="Enter a product name and a price first.";return}
- MY.p.push({n:n,pr:pr,e:$("p_e").value,old:+$("p_old").value||0});$("sd").innerHTML=formH()}
-function rmP(i){keep();MY.p.splice(i,1);$("sd").innerHTML=formH()}
+function addP(){keep();var n=PD.n.trim(),pr=PD.pr;if(!n||!pr){msg("Enter a product name and a price first.");return}
+ var o={n:n,pr:pr,e:PD.e,old:PD.old,im:PD.im.slice()};if(EDIT>=0)MY.p[EDIT]=o;else MY.p.push(o);EDIT=-1;PD=newPD();$("sd").innerHTML=formH();msg("Product saved. Add another, or tap Publish my shop.")}
+function rmP(i){keep();MY.p.splice(i,1);if(EDIT==i){EDIT=-1;PD=newPD()}$("sd").innerHTML=formH()}
 function saveShop(){keep();if(!MY.n.trim()||!MY.ph.trim()||!MY.p.length){$("msg").textContent="Add your shop name, phone number and at least one product.";return}
  var doc={n:MY.n,st:MY.st,tw:MY.tw,a:MY.a,c:MY.c,ad:MY.ad,ph:MY.ph,o:+MY.o,cl:+MY.cl,p:MY.p};
  var done=function(){setLoc(MY.st,MY.tw,MY.a);cat="All";$("q").value=MY.n;render();$("sd").close();$("all").scrollIntoView({behavior:"smooth"})};
@@ -262,12 +275,13 @@ function setTab(t){$("acd").innerHTML=acct(t)}
 function find(k){return P.filter(function(p){return key(p)==k})[0]}
 function acct(t){
  if(t=="reset")return authH("reset");if(!ME)return authH(AM);
- var tabs=[["saved","♡ Saved ("+ME.saved.length+")"],["shops","Shops ("+ME.shops.length+")"],["enq","Enquiries ("+ME.enq.length+")"],["prof","Profile"]],b="";
+ var tabs=[["saved","♡ Saved ("+ME.saved.length+")"],["shops","Shops ("+ME.shops.length+")"],["enq","Enquiries ("+ME.enq.length+")"],["myshop","My shop"],["prof","Profile"]],b="";
  if(t=="saved"){b=ME.saved.map(find).filter(Boolean).map(function(p){var i=P.indexOf(p);return '<div class="row2"><div class="ic" style="background:'+hue(i)+'">'+p.e+'</div><div class="tx"><b>'+p.n+'</b><small>'+N(p.pr)+' · '+S[p.s].n+'</small></div><button class="mini" onclick="acd.close();show('+i+')">View</button><button class="mini o" onclick="tg('+i+');setTab(\'saved\')">✕</button></div>'}).join("")||'<div class="empty">Nothing saved yet. Tap the ♡ on any item to keep it here.</div>'}
  if(t=="shops"){b=ME.shops.map(function(n){var s=S.filter(function(x){return x.n==n})[0];return s?'<div class="row2"><div class="ic" style="background:'+hue(S.indexOf(s))+'">'+s.e+'</div><div class="tx"><b>'+s.n+'</b><small>'+s.a+' · '+(open_(s)?"Open now":"Closed")+'</small></div><button class="mini" onclick="shopGo('+S.indexOf(s)+')">Items</button></div>':""}).join("")||'<div class="empty">You are not following any shops. Open an item and tap "Follow shop".</div>'}
  if(t=="enq"){b='<p class="meta" style="color:var(--mute);margin:0 0 6px">Every time you call or WhatsApp a shop from StritBuy, it is logged here. After you buy, rate the shop.</p>'+ME.enq.map(function(q,j){var d=new Date(q.t).toLocaleDateString("en-NG",{day:"numeric",month:"short"});
   var act=q.rt?'<span class="star">'+"★".repeat(q.rt)+"</span> Rated":q.got?'<span class="stars">'+[1,2,3,4,5].map(function(n){return '<button onclick="rate('+j+','+n+')" aria-label="'+n+' stars">★</button>'}).join("")+'</span>':'<button class="mini o" onclick="ME.enq['+j+'].got=1;sv();setTab(\'enq\')">I bought this</button>';
   return '<div class="row2"><div class="ic" style="background:var(--bg)">'+q.e+'</div><div class="tx"><b>'+q.n+'</b><small>'+q.sn+' · '+N(q.pr)+' · '+d+'</small></div><div>'+act+'</div></div>'}).join("")||'<div class="empty">No enquiries yet. Call or WhatsApp a shop and it will show up here.</div>'}
+ if(t=="myshop"){var ms=LIVE.filter(function(x){return SB_USER&&x.oid==SB_USER.id})[0];b=ms?'<div class="row2"><div class="ic" style="background:var(--bg)">'+ms.e+'</div><div class="tx"><b>'+ms.n+'</b><small>'+ms.p.length+' product'+(ms.p.length==1?"":"s")+' · '+lab2(ms)+'</small></div></div><button class="sv" onclick="acd.close();openSell()">Edit my shop and products</button><button class="sm2" style="border-color:var(--red);color:var(--red)" onclick="delShop()">Delete my shop</button>':'<div class="empty">You have not listed a shop yet.</div><button class="sv" onclick="acd.close();openSell()">Sell on StritBuy</button>'}
  if(t=="prof"){b='<label>Name</label><input id="e_n" value="'+esc(ME.name)+'"><label>Phone</label><input id="e_p" type="tel" value="'+esc(ME.phone)+'"><div class="msg">Location: <b>'+LBL2()+'</b> (change it at the top of the page)</div><button class="sv" style="margin-top:14px" onclick="saveProf()">Save changes</button><button class="sm2" style="border-style:solid;border-color:var(--red);color:var(--red)" onclick="signOut()">Sign out</button>'}
  return '<div class="ah"><h2>Hi, '+esc(ME.name.split(" ")[0])+' 👋</h2><small>📍 '+LBL2()+'</small></div><div class="tabs">'+tabs.map(function(x){return '<button class="'+(x[0]==t?"on":"")+'" onclick="setTab(\''+x[0]+'\')">'+x[1]+'</button>'}).join("")+'</div><div class="ab fm" style="padding:14px 20px">'+b+'</div><div style="padding:0 20px 16px"><button class="sm2" style="border-style:solid;border-color:var(--line);color:var(--ink)" onclick="acd.close()">Close</button></div>'}
 function saveProf(){ME.name=$("e_n").value.trim()||ME.name;ME.phone=$("e_p").value.trim();ME.loc={st:ST,tw:TW,a:area};sv();render();setTab("prof")}
@@ -305,7 +319,10 @@ async function loadMe(){if(!SB_USER){ME=null;hdr();render();return}
  ME.email=SB_USER.email;ME.saved=ME.saved||[];ME.shops=ME.shops||[];ME.enq=ME.enq||[];if(!(d&&d.name))sv();
  if(ME.loc&&L[ME.loc.st]&&L[ME.loc.st][ME.loc.tw])setLoc(ME.loc.st,ME.loc.tw,ME.loc.a);else{hdr();render()}
  if($("acd").open&&$("acd").innerHTML.indexOf("Choose a new")<0)setTab("saved")}
+function lab2(s){return (s.a&&s.a!="All areas"?s.a+", ":"")+(s.t||"")}
+async function delShop(){if(!confirm("Delete your shop and all its products?"))return;await sb.from("shops").delete().eq("owner_id",SB_USER.id);await loadShops();setTab("myshop")}
 async function loadShops(){try{var r=await sb.from("shops").select("id,owner_id,data");LIVE=(r.data||[]).map(function(d){var x=ingest(d.data||{},d.id);x.oid=d.owner_id;return x}).filter(function(x){return x.n&&x.p.length});sync()}catch(e){}}
+if(sb)loadShops();
 if(sb)sb.auth.onAuthStateChange(function(ev,ss){SB_USER=ss?ss.user:null;if(ev=="PASSWORD_RECOVERY"){openAcct("reset");return}setTimeout(loadMe,0)});
 document.getElementById("acd").addEventListener("click",function(e){if(e.target==this)this.close()});
 if(ME&&ME.loc&&L[ME.loc.st]&&L[ME.loc.st][ME.loc.tw]){ST=ME.loc.st;TW=ME.loc.tw;area=ME.loc.a}initLoc();hdr();render();
