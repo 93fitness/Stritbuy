@@ -199,7 +199,7 @@ function show(i){var p=P[i],s=S[p.s],o=open_(s),ph=(s.ph||'08000000000').replace
  $("dlg").innerHTML='<div class="dt" style="background:'+hue(i)+'">'+p.e+'<button class="x" aria-label="Close" onclick="dlg.close()">✕</button></div><div class="dbd"><h2>'+p.n+'</h2><div class="pr" style="font-size:26px">'+N(p.pr)+(p.old?'<span class="old">'+N(p.old)+'</span>':"")+'</div><div class="ps"><span class="star">★</span>'+p.r+' rating</div>'+
  '<div class="shopbox">'+(s.smp?'<div style="background:var(--sun);color:#1B1B2F;border-radius:8px;padding:4px 8px;font-weight:700;font-size:12px;margin-bottom:8px">Sample listing for demonstration. Not a real shop.</div>':"")+'<b>'+s.e+' '+s.n+'</b>'+(s.v?' <span style="color:var(--g);font-weight:700">✓ Verified</span>':"")+'<br>'+s.ad+', '+s.a+'<br>'+D(s)+' · <b style="color:'+(o?"var(--g)":"var(--red)")+'">'+(o?"Open now":"Closed")+'</b> · '+hr(s.o)+' to '+hr(s.cl)+(s.smp?'<br><small style="color:var(--mute)">Sample shop for demonstration</small>':"")+'</div>'+
  '<div class="acts" style="margin-bottom:0"><button class="btn sec" id="hsave" onclick="tg('+i+')">'+(isSaved(p)?"♥ Saved":"♡ Save item")+'</button><button class="btn sec" id="hfol" onclick="fl('+i+')">'+(isFol(s)?"✓ Following shop":"+ Follow shop")+'</button></div><div class="acts"><a class="btn call" onclick="logEnq('+i+')" href="tel:'+ph+'">Call shop</a><a class="btn wa" onclick="logEnq('+i+')" href="https://wa.me/'+wn+'?text='+t+'" target="_blank" rel="noopener">WhatsApp</a></div>'+
- '<h3 style="margin-top:16px;font-size:15px">More from this shop</h3><div class="more">'+s.p.map(function(x){return '<div>'+x[2]+' '+x[0]+' · '+N(x[1])+'</div>'}).join("")+'</div></div>';$("dlg").showModal()}
+ '<h3 style="margin-top:16px;font-size:15px">More from this shop</h3><div class="more">'+s.p.map(function(x){return '<div>'+x[0]+' · '+N(x[1])+'</div>'}).join("")+'</div></div>';$("dlg").showModal()}
 document.addEventListener("click",function(e){var b;
  if(b=e.target.closest("[data-h]"))return tg(b.dataset.h);
  if(b=e.target.closest(".p"))return show(b.dataset.i);
@@ -210,6 +210,15 @@ $("go").onclick=function(){$("deals").scrollIntoView({behavior:"smooth"})};
 $("st").onchange=function(){ST=this.value;TW=Object.keys(L[ST])[0];area="All areas";initLoc();render()};$("tw").onchange=function(){TW=this.value;area="All areas";initLoc();render()};$("area").onchange=function(){area=this.value;render()};$("q").oninput=render;
 var LIVE=[],db=null,uid=null,MY={n:"",a:"Adebayo",c:"Provisions",ad:"",ph:"",o:8,cl:20,p:[]};
 var esc=function(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return "&#"+c.charCodeAt(0)+";"}).slice(0,80)};
+var PTG={"Food and drinks":[["Chicken","🍗"],["Fish","🐟"],["Turkey","🦃"],["Meat","🥩"],["Rice","🍚"],["Noodles","🍜"],["Cooked food","🍲"],["Fast food","🍔"],["Small chops","🥟"],["Cake","🎂"],["Bread","🍞"],["Fruits","🍎"],["Vegetables","🥬"],["Pepper and tomatoes","🌶️"],["Yam and tubers","🍠"],["Drinks","🥤"],["Water","💧"],["Cooking oil","🫙"],["Eggs","🥚"],["Milk and dairy","🥛"],["Provisions","🛒"]],
+"Fashion and beauty":[["Clothes","👕"],["Dresses","👗"],["Native wear","👘"],["Fabric and ankara","🧵"],["Shoes","👟"],["Bags","👜"],["Kiddies wear","🧒"],["Thrift wear","🧥"],["Watches and jewelry","⌚"],["Wigs and hair","💇🏾‍♀️"],["Perfume","🧴"],["Makeup","💄"],["Nails","💅"]],
+"Gadgets":[["Phone","📱"],["Laptop","💻"],["Chargers and cables","🔌"],["Power bank","🔋"],["Earphones","🎧"],["TV and screens","📺"],["Generator and power","⚡"],["Fan and appliances","🌀"],["Camera","📷"]],
+"Vehicles":[["Car","🚗"],["Motorbike","🏍️"],["Dispatch rider","🛵"],["Spare parts","⚙️"]],
+"Home and building":[["Furniture","🛋️"],["Bed and mattress","🛏️"],["Kitchen items","🍳"],["Building materials","🧱"],["Paint","🎨"],["Tools","🔧"],["Cleaning supplies","🧼"]],
+"Health":[["Medicine","💊"],["Health devices","🩺"]],
+"Services and others":[["Haircut and barbing","💈"],["Repair service","🛠️"],["Laundry","🧺"],["Printing","🖨️"],["Event rentals","🎪"],["Decoration","🎉"],["Books and lessons","📚"],["Cleaning service","🧹"],["Declutter and used items","♻️"],["Gifts","🎁"],["Baby items","👶"],["Toys","🧸"],["Sports and fitness","🏋️"],["Farm produce","🌾"],["Other","🛍️"]]};
+function ptName(e){var r="Item";Object.keys(PTG).forEach(function(g){PTG[g].forEach(function(t){if(t[1]==e)r=t[0]})});return r}
+function ptOpts(){return Object.keys(PTG).map(function(g){return '<optgroup label="'+g+'">'+PTG[g].map(function(t){return '<option value="'+t[1]+'">'+t[0]+'</option>'}).join("")+'</optgroup>'}).join("")}
 var EM=["🛍️","🧴","📱","🍗","🍲","🛒","🧵","💈","🔧","🎁","👟","🥬","💊","📚","🧼"];
 function sync(){S.length=BASE;LIVE.forEach(function(d){S.push(d)});buildP();render()}
 function ingest(x,id){var ic=(C.filter(function(c){return c[0]==x.c})[0]||["","🛍️"])[1];
@@ -223,8 +232,8 @@ function formH(){return '<div class="fm"><h2>Sell on StritBuy</h2><p class="meta
  '<label>Shop address</label><input id="f_ad" value="'+esc(MY.ad)+'" placeholder="Street, landmark">'+
  '<label>Phone / WhatsApp number</label><input id="f_ph" type="tel" value="'+esc(MY.ph)+'" placeholder="0803 000 0000">'+
  '<div class="two"><div><label>Opens</label><select id="f_o">'+hrs(MY.o)+'</select></div><div><label>Closes</label><select id="f_cl">'+hrs(MY.cl)+'</select></div></div>'+
- '<label>Your products</label><div id="pl">'+MY.p.map(function(q,i){return '<div class="pl"><span>'+esc(q.e)+' '+esc(q.n)+' · '+N(q.pr)+'</span><button onclick="rmP('+i+')">Remove</button></div>'}).join("")+'</div>'+
- '<div class="add" style="margin-top:8px"><select id="p_e">'+EM.map(function(e){return '<option>'+e+'</option>'}).join("")+'</select><input id="p_n" placeholder="Product name"></div>'+
+ '<label>Your products</label><div id="pl">'+MY.p.map(function(q,i){return '<div class="pl"><span><b>'+ptName(q.e)+':</b> '+esc(q.n)+' · '+N(q.pr)+'</span><button onclick="rmP('+i+')">Remove</button></div>'}).join("")+'</div>'+
+ '<label>Product type</label><select id="p_e">'+ptOpts()+'</select><label>Product name</label><input id="p_n" placeholder="e.g. Fresh frozen chicken, per kg">'+
  '<div class="two" style="margin-top:8px"><input id="p_p" type="number" min="0" placeholder="Price (₦)"><input id="p_old" type="number" min="0" placeholder="Old price (optional)"></div>'+
  '<button class="sm2" onclick="addP()">+ Add this product</button><button class="sv" onclick="saveShop()">Publish my shop</button><div class="msg" id="msg">'+"Your shop is saved to StritBuy and visible to everyone."+'</div>'+
  '<button class="sm2" style="border-style:solid;border-color:var(--line);color:var(--ink)" onclick="sd.close()">Close</button></div>'}
