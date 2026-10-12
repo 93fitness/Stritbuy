@@ -255,7 +255,7 @@ function sync(){S.length=BASE;LIVE.forEach(function(d){S.push(d)});buildP();rend
 function okIm(a){return (Array.isArray(a)?a:[]).slice(0,3).filter(function(u){return typeof u=="string"&&u.indexOf(SB_URL+"/storage/v1/object/public/products/")==0&&/^[A-Za-z0-9:\/._\-%]+$/.test(u)})}
 function ingest(x,id){var ic=(C.filter(function(c){return c[0]==x.c})[0]||["","🛍️"])[1];
  return {id:id,n:esc(x.n),st:x.st,t:x.tw,a:esc(x.a),c:x.c,e:ic,ad:esc(x.ad),ph:esc(x.ph),o:+x.o||8,cl:+x.cl||20,v:0,d:null,
-  p:(x.p||[]).slice(0,30).map(function(q){return [esc(q.n),+q.pr||0,esc(q.e)||"🛍️",+q.old||0,okIm(q.im)]})}}
+  p:(x.p||[]).slice(0,200).map(function(q){return [esc(q.n),+q.pr||0,esc(q.e)||"🛍️",+q.old||0,okIm(q.im)]})}}
 var hrs=function(v){var o="";for(var h=5;h<=23;h++)o+='<option value="'+h+'"'+(h==v?" selected":"")+'>'+hr(h)+'</option>';return o};
 function formH(){return '<div class="fm"><h2>Sell on StritBuy</h2><p class="meta" style="color:var(--mute)">Put your shop in front of people in your area. It takes two minutes.</p>'+
  '<label>Shop name</label><input id="f_n" value="'+esc(MY.n)+'" placeholder="e.g. Bisi Fabrics">'+
